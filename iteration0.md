@@ -23,10 +23,10 @@ On se concentre sur le centre du projet c'est à dire le quiz et tous ce qu'il y
 ### Titre des nouvelles User Stories  
 *Lister ici les nouveaux éléments pour l'itération suivante. Ces éléments ont dû être revus et corrigés par le PO.*
 >
-Moi utilisateur, je veux voir les question pour pouvoir y répondre
-Moi utilisateur, je veux pouvoir choisir une réponse à la question pour jouer et accéder à la réponse
-Moi utilisateur, je veux  passer à la suite du quizz après avoir vu la réponse pour continuer à jouer
-En tant qu'utilisateur je veux pouvoir ajouter des questions associées à des bonnes réponses pour partager mes anecdotes avec les copaings
+Moi utilisateur, je veux voir les question pour pouvoir y répondre.
+Moi utilisateur, je veux pouvoir choisir une réponse à la question pour jouer et accéder à la réponse.
+Moi utilisateur, je veux  passer à la suite du quizz après avoir vu la réponse pour continuer à jouer.
+En tant qu'utilisateur je veux pouvoir ajouter des questions associées à des bonnes réponses pour partager mes anecdotes avec les copaings.
 En tant qu'utilisateurs, je souhaite signaler des questions que je juges non-approprier afin de protéger ma vie, ou celle-de mes copaings. 
 
 ## Confiance 

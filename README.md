@@ -9,4 +9,4 @@
 ## Technologies utilisées
 
 - Firebase, pour la gestion des bases de données 
-- Angular, pour la création du site dynaqmique et disruptif
+- Angular, pour la création du site dynamique et disruptif

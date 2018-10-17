@@ -10,3 +10,15 @@
 
 - Firebase, pour la gestion des bases de données 
 - Angular, pour la création du site dynamique et disruptif
+
+## Mode d'emplois 
+
+* Cloner le projet 
+* Se rendre dans le dossier principal du projet 
+* ``` 
+      cd src 
+      npm install
+      cd ..
+      ng serve 
+* Se rendre sur l'URL localhost:4200
+

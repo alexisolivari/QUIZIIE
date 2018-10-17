@@ -6,6 +6,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { NavbarComponent } from './header/navbar/navbar.component';
 import { QuestionComponent } from './questions/question/question.component';
 import { AnswerComponent } from './questions/answer/answer.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { QuestionsFormComponent } from './questions/questions-form/questions-form.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { AnswerComponent } from './questions/answer/answer.component';
     SignupComponent,
     NavbarComponent,
     QuestionComponent,
-    AnswerComponent
+    AnswerComponent,
+    SigninComponent,
+    QuestionsFormComponent
   ],
   imports: [
     BrowserModule

@@ -12,8 +12,10 @@
       </button>
       <div class="row">
         <div class="col-sm-6 " *ngFor="let answer of question.answers">
-          <button type="button" class="btn btn-primary btn-block"> {{answer}} </button>
+          <button type="button" class="btn btn-primary btn-block" (click)="onValidateAnswer(answer,question)"> {{answer}} </button>
         </div>
+        <p class="text-success" *ngIf="question.success === 'goodAnswer' ">BONNE REPONSE ! :D</p>
+        <p class="text-danger" *ngIf="question.success === 'badAnswer' ">MAUVAISE REPONSE ! :(</p>
       </div>
     </div>
     <button class="btn btn-primary" (click)="onNewQuestion()">Nouvelle question</button>

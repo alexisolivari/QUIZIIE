@@ -14,6 +14,8 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   questions: Questions[];
   questionsSubscription: Subscription;
 
+
+
   constructor(private questionsService: QuestionsService,
               private router: Router) { }
 
@@ -38,6 +40,11 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   onViewQuestion(id : number){
     this.router.navigate(['/questions/view/' + id]);
     console.log(id)
+  }
+
+  onValidateAnswer(answer: string, question: Questions) {
+    this.questionsService.validateAnswer(answer, question)
+
   }
 
   ngOnDestroy(){

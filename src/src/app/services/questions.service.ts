@@ -65,4 +65,15 @@ export class QuestionsService {
     this.emitQuestions();
   }
 
+  validateAnswer(answer: string, question: Questions) {
+    if(question.goodAnswer === answer ){
+      question.success = 'goodAnswer';
+    }
+    else {
+      question.success = 'badAnswer';
+    }
+    this.emitQuestions();
+
+  }
+
 }

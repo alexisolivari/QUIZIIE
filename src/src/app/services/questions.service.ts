@@ -20,6 +20,9 @@ export class QuestionsService {
   }
 
   saveQuestions() {
+    for(let question of this.questions){
+      question.success = 'noAnswer';
+    }
     firebase.database().ref('/questions').set(this.questions);
   }
 

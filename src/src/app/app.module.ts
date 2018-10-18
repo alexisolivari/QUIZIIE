@@ -14,13 +14,17 @@ import {QuestionsService} from "./services/questions.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
-import {$QUESTION} from "codelyzer/angular/styles/chars";
+import {QuestionListComponent} from "./questions/question-list/question-list.component";
+
 
 const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent },
   {path: 'auth/signin' , component: SigninComponent },
-  {path: 'questions/question' , component: QuestionComponent },
-  {path: 'questions/new' , component: QuestionsFormComponent },
+  {path: 'questions/question', canActivate: [AuthGuardService] , component: QuestionListComponent },
+  {path: 'questions/new', canActivate: [AuthGuardService] , component: QuestionsFormComponent },
+  {path: 'questions/view/:id', component: QuestionComponent},
+  {path: '', redirectTo: 'questions/question', pathMatch: 'full'},
+  {path: '**', redirectTo: 'questions/question'}
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
   ];
 
@@ -33,7 +37,8 @@ const appRoutes: Routes = [
     QuestionComponent,
     AnswerComponent,
     SigninComponent,
-    QuestionsFormComponent
+    QuestionsFormComponent,
+    QuestionListComponent
   ],
   imports: [
     BrowserModule,

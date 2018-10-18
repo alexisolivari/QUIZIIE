@@ -1,3 +1,26 @@
-<p>
-  questions-form works!
-</p>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <form [formGroup]="questionForm" (ngSubmit)="onSaveQuestion()">
+        <div class="form-group">
+          <label for="question">Question</label>
+          <input type="text" class="form-control" id="question" formControlName="question">
+        </div>
+        <div class="form-group">
+          <label for="answer1">Réponse 1</label>
+          <input type="text" class="form-control" id="answer1" formControlName="answer1">
+
+          <label for="answer2">Réponse 2</label>
+          <input type="text" class="form-control" id="answer2" formControlName="answer2">
+          <label for="answer3">Réponse 3</label>
+          <input type="text" class="form-control" id="answer3" formControlName="answer3">
+          <label for="answer4">Réponse 4</label>
+          <input type="text" class="form-control" id="answer4" formControlName="answer4">
+        </div>
+        <div class="form-group">
+          <label for="goodAnswer">Bonne Réponse</label>
+          <input type="text" class="form-control" id="goodAnswer" formControlName="goodAnswer">
+        </div>
+        <button class="btn btn-success" [disabled]="questionForm.invalid" type="submit">Enregistrer</button>
+      </form>
+    </div>
+</div>

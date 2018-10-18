@@ -1,3 +1,3 @@
 export class Questions {
-  constructor(public question : string, public  answer: string, public id : number ){}
+  constructor(public question : string, public  answers: string[], public goodAnswer : string ){}
 }

@@ -22,9 +22,8 @@
 * Cloner le projet 
 * Se rendre dans le dossier principal du projet 
 * ``` 
-      cd src 
+      cd src/
       npm install
-      cd ..
       ng serve 
 * Se rendre sur l'URL localhost:4200
 

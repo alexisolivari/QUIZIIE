@@ -14,6 +14,10 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   questions: Questions[];
   questionsSubscription: Subscription;
 
+  questionClickedId : number = -1;
+
+  buttonColor: string = "btn-primary";
+
 
 
   constructor(private questionsService: QuestionsService,
@@ -42,8 +46,10 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     console.log(id)
   }
 
-  onValidateAnswer(answer: string, question: Questions) {
-    this.questionsService.validateAnswer(answer, question)
+  onValidateAnswer(answer: string, question: Questions, i : number ) {
+    this.buttonColor = this.questionsService.validateAnswer(answer, question);
+    this.questionClickedId = i;
+
 
   }
 

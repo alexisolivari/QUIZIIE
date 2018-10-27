@@ -70,9 +70,9 @@ export class QuestionsService {
 
   validateAnswer(answer: string, question: Questions) {
     let buttonColor: string = "btn-primary";
-    for(let allQuestion of this.questions){
+    /*for(let allQuestion of this.questions){
       allQuestion.success = 'noAnswer';
-    }
+    } */
     if(question.goodAnswer === answer ){
       question.success = 'goodAnswer';
       buttonColor = "btn-success";

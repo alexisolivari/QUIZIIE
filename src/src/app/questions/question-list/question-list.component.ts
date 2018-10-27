@@ -14,7 +14,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   questions: Questions[];
   questionsSubscription: Subscription;
 
-  questionClickedId : number = -1;
+  listQuestionClickedId : number[][] = [];
 
   buttonColor: string = "btn-primary";
 
@@ -46,11 +46,20 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     console.log(id)
   }
 
-  onValidateAnswer(answer: string, question: Questions, i : number ) {
+  onValidateAnswer(answer: string, question: Questions, indexQuestion : number, indexAnswer : number ) {
     this.buttonColor = this.questionsService.validateAnswer(answer, question);
-    this.questionClickedId = i;
+    this.listQuestionClickedId.push([indexQuestion, indexAnswer]);
+    console.log(this.listQuestionClickedId);
 
+  }
 
+  questionAlreadyClicked(listQuestionAnswer: number[]){
+    for(let questionAnswer of this.listQuestionClickedId){
+      if (questionAnswer[0] === listQuestionAnswer[0] && questionAnswer[1]===listQuestionAnswer[1]){
+        return 'oui';
+      }
+    }
+    return 'non';
   }
 
   ngOnDestroy(){

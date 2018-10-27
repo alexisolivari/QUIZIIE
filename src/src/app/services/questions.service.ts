@@ -11,12 +11,19 @@ export class QuestionsService {
   questions: Questions[] = [];
   questionsSubject = new Subject<Questions[]>();
 
+  note: number = 0;
+  noteSubject = new Subject<number>();
+
   constructor() {
     this.getQuestions();
   }
 
   emitQuestions() {
     this.questionsSubject.next(this.questions);
+  }
+
+  emitNote(){
+    this.noteSubject.next(this.note);
   }
 
   saveQuestions() {
@@ -76,6 +83,8 @@ export class QuestionsService {
     if(question.goodAnswer === answer ){
       question.success = 'goodAnswer';
       buttonColor = "btn-success";
+      this.note += 1;
+      this.emitNote();
     }
     else {
       question.success = 'badAnswer';

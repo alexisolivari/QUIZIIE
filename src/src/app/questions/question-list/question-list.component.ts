@@ -16,6 +16,9 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   listQuestionClickedId : number[][] = [];
 
+  note: number;
+  noteSubscription: Subscription;
+
   buttonColor: string = "btn-primary";
 
 
@@ -31,6 +34,13 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     );
     this.questionsService.getQuestions();
     this.questionsService.emitQuestions();
+
+    this.noteSubscription = this.questionsService.noteSubject.subscribe(
+      (note: number) => {
+        this.note = note
+      }
+    );
+    this.questionsService.emitNote();
   }
 
   onNewQuestion() {

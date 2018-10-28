@@ -1,8 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Questions} from "../../models/Questions.model";
 import {Subscription} from "rxjs";
 import {QuestionsService} from "../../services/questions.service";
 import {Router} from "@angular/router";
+import {Alert} from "selenium-webdriver";
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import {AlertComponent} from "../../utilities/alert/alert.component";
 
 @Component({
   selector: 'app-question-list',
@@ -19,12 +22,15 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   note: number;
   noteSubscription: Subscription;
 
+  numberOfAnswerdQuestion: number;
+  numberOfAnswerdQuestionSubscription: Subscription;
+
   buttonColor: string = "btn-primary";
 
 
-
   constructor(private questionsService: QuestionsService,
-              private router: Router) { }
+              private router: Router,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.questionsSubscription = this.questionsService.questionsSubject.subscribe(
@@ -41,6 +47,16 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       }
     );
     this.questionsService.emitNote();
+
+    this.numberOfAnswerdQuestionSubscription = this.questionsService.numberOfAnswerdQuestionSubject.subscribe(
+      (numberOfAnswerdQuestion: number) => {
+        this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
+        if (this.numberOfAnswerdQuestion === this.questions.length && this.questions.length != 0){
+          this.openDialog();
+        }
+      }
+    );
+    this.questionsService.emitNumberOfAnswerdQuestion();
   }
 
   onNewQuestion() {
@@ -72,8 +88,29 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     return 'non';
   }
 
+  openDialog(){
+    alert("Votre score est de :" + this.note + "/" + this.numberOfAnswerdQuestion);
+  }
+
+  /* openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.position = {
+      'top': '0',
+      left: '0'
+    };
+
+    this.dialog.open(AlertComponent, dialogConfig);
+  } */
+
   ngOnDestroy(){
     this.questionsSubscription.unsubscribe();
+    this.noteSubscription.unsubscribe();
+    this.numberOfAnswerdQuestionSubscription.unsubscribe();
   }
 
 }

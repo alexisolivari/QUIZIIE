@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import {AlertComponent} from "./utilities/alert/alert.component";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,7 @@ export class AppComponent {
       storageBucket: "projet-pima.appspot.com",
       messagingSenderId: "817238222604"
     };
-    firebase.initializeApp(config); 
+    firebase.initializeApp(config);
+
   }
 }

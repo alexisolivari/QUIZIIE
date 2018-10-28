@@ -15,6 +15,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {QuestionListComponent} from "./questions/question-list/question-list.component";
+import { AlertComponent } from './utilities/alert/alert.component';
+import {MatDialogModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 const appRoutes: Routes = [
@@ -38,20 +42,24 @@ const appRoutes: Routes = [
     AnswerComponent,
     SigninComponent,
     QuestionsFormComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
     AuthGuardService,
     QuestionsService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertComponent]
 })
 export class AppModule { }

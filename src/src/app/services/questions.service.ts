@@ -14,6 +14,9 @@ export class QuestionsService {
   note: number = 0;
   noteSubject = new Subject<number>();
 
+  numberOfAnswerdQuestion: number = 0;
+  numberOfAnswerdQuestionSubject = new Subject<number>();
+
   constructor() {
     this.getQuestions();
   }
@@ -24,6 +27,10 @@ export class QuestionsService {
 
   emitNote(){
     this.noteSubject.next(this.note);
+  }
+
+  emitNumberOfAnswerdQuestion(){
+    this.numberOfAnswerdQuestionSubject.next(this.numberOfAnswerdQuestion);
   }
 
   saveQuestions() {
@@ -84,13 +91,16 @@ export class QuestionsService {
       question.success = 'goodAnswer';
       buttonColor = "btn-success";
       this.note += 1;
+      this.numberOfAnswerdQuestion +=1;
       this.emitNote();
     }
     else {
       question.success = 'badAnswer';
       buttonColor = "btn-danger";
+      this.numberOfAnswerdQuestion +=1;
     }
 
+    this.emitNumberOfAnswerdQuestion();
     this.emitQuestions();
 
     return buttonColor;

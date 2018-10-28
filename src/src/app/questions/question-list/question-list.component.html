@@ -4,7 +4,7 @@
     <div class="list-group list-group-item" *ngFor="let question of questions; let indexQuestion = index">
       <div class="list-group-item">
         <h3 class="list-group-item-heading">
-          {{question.question}}
+          {{indexQuestion + 1}}. {{question.question}}
           <button class="btn btn-default pull-right" (click)="onViewQuestion(i)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
@@ -36,6 +36,7 @@
       </div>
     </div>
   </div>
+  <button class="btn btn-primary" (click)="openDialog()">Afficher le score.</button>
   <h2>Votre score : {{note}} / {{questions.length}}</h2>
   <button class="btn btn-primary" (click)="onNewQuestion()">Nouvelle question</button>
 </div>

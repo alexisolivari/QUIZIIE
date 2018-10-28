@@ -59,17 +59,23 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.questionsService.emitNumberOfAnswerdQuestion();
   }
 
+  resetNotAndAnswer() {
+    this.questionsService.resetNoteAndQuestionAnswerd();
+  }
+
   onNewQuestion() {
-    this.router.navigate(['/questions/new'])
+    this.router.navigate(['/questions/new']);
+    this.resetNotAndAnswer();
   }
 
   onDeleteQuestion(question: Questions){
     this.questionsService.removeQuestion(question);
+    this.resetNotAndAnswer();
   }
 
   onViewQuestion(id : number){
     this.router.navigate(['/questions/view/' + id]);
-    console.log(id)
+    this.resetNotAndAnswer();
   }
 
   onValidateAnswer(answer: string, question: Questions, indexQuestion : number, indexAnswer : number ) {

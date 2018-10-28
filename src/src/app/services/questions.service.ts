@@ -62,6 +62,13 @@ export class QuestionsService {
     )
   }
 
+  resetNoteAndQuestionAnswerd() {
+    this.note = 0;
+    this.numberOfAnswerdQuestion = 0;
+    this.emitNumberOfAnswerdQuestion();
+    this.emitNote();
+  }
+
   createNewQuestion(newQuestion: Questions){
     this.questions.push(newQuestion);
     this.saveQuestions();

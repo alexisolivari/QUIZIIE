@@ -57,7 +57,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.numberOfAnswerdQuestionSubscription = this.questionsService.numberOfAnswerdQuestionSubject.subscribe(
       (numberOfAnswerdQuestion: number) => {
         this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
-        if (this.numberOfAnswerdQuestion === this.questions.length && this.questions.length != 0){
+        if (this.numberOfAnswerdQuestion === this.listOfRandomQuestions.length && this.listOfRandomQuestions.length != 0){
           this.displayScore();
         }
       }

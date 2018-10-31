@@ -14,8 +14,12 @@ import {AlertComponent} from "../../utilities/alert/alert.component";
 })
 export class QuestionListComponent implements OnInit, OnDestroy {
 
+  readonly NUMBER_OF_QUESTION = 10;
+
   questions: Questions[];
   questionsSubscription: Subscription;
+
+  listOfRandomQuestions: Questions[] = [];
 
   listQuestionClickedId : number[][] = [];
 
@@ -30,12 +34,14 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   constructor(private questionsService: QuestionsService,
               private router: Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.questionsSubscription = this.questionsService.questionsSubject.subscribe(
       (questions: Questions[]) => {
         this.questions = questions
+        // this.listOfRandomQuestions = this.generateRandomQuestions(questions, 5);
       }
     );
     this.questionsService.getQuestions();
@@ -52,11 +58,14 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       (numberOfAnswerdQuestion: number) => {
         this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
         if (this.numberOfAnswerdQuestion === this.questions.length && this.questions.length != 0){
-          this.openDialog();
+          this.displayScore();
         }
       }
     );
     this.questionsService.emitNumberOfAnswerdQuestion();
+
+    this.resetNotAndAnswer();
+    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
   }
 
   resetNotAndAnswer() {
@@ -66,11 +75,13 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   onNewQuestion() {
     this.router.navigate(['/questions/new']);
     this.resetNotAndAnswer();
+    this.questionsService.getQuestions();
   }
 
   onDeleteQuestion(question: Questions){
     this.questionsService.removeQuestion(question);
     this.resetNotAndAnswer();
+    this.questionsService.getQuestions();
   }
 
   onViewQuestion(id : number){
@@ -94,11 +105,18 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     return 'non';
   }
 
-  openDialog(){
+  displayScore(){
     alert("Votre score est de :" + this.note + "/" + this.numberOfAnswerdQuestion);
+
+
   }
 
-  /* openDialog() {
+  newQuestions(){
+    this.resetNotAndAnswer();
+    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION);
+  }
+
+  /* displayScore() {
 
     const dialogConfig = new MatDialogConfig();
 
@@ -112,6 +130,45 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
     this.dialog.open(AlertComponent, dialogConfig);
   } */
+
+  randomInt(min, max) {
+    return Math.floor(Math.random() * (max-min +1)) +min
+  }
+
+
+  generateRandomQuestions(questionsList : Questions[], numberOfQuestion : number  ){
+    let listOfRandomQuestion : Questions[] = [];
+    let listOfRandomNumber : number[] = [];
+    let randomNumber : number;
+
+    if(numberOfQuestion <= this.questions.length) {
+        console.log("Number of question is ok");
+    }
+    else{
+      numberOfQuestion = this.questions.length;
+    }
+      while (listOfRandomNumber.length < numberOfQuestion) {
+        randomNumber = this.randomInt(0, questionsList.length-1);
+        console.log(randomNumber, randomNumber in listOfRandomNumber, listOfRandomNumber);
+
+        while (listOfRandomNumber.indexOf(randomNumber) !== -1) {
+
+          randomNumber = this.randomInt(0, questionsList.length-1 );
+        }
+
+        listOfRandomNumber.push(randomNumber);
+      }
+
+    console.log(listOfRandomNumber);
+
+    for(let index of listOfRandomNumber){
+      listOfRandomQuestion.push(questionsList[index]);
+      // questionsList.splice(index, 1);
+    }
+
+    return listOfRandomQuestion;
+
+  }
 
   ngOnDestroy(){
     this.questionsSubscription.unsubscribe();

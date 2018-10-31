@@ -34,14 +34,17 @@ export class QuestionsService {
   }
 
   saveQuestions() {
-    for(let question of this.questions){
-      question.success = 'noAnswer';
+    if (this.questions != []) {
+      for (let question of this.questions) {
+        question.success = 'noAnswer';
+      }
+      firebase.database().ref('/questions').set(this.questions);
     }
-    firebase.database().ref('/questions').set(this.questions);
   }
 
   getQuestions() {
     firebase.database().ref('/questions').on('value', (data) => {
+      console.log(data);
       this.questions = data.val() ? data.val() : [];
       this.emitQuestions();
     });
@@ -65,6 +68,10 @@ export class QuestionsService {
   resetNoteAndQuestionAnswerd() {
     this.note = 0;
     this.numberOfAnswerdQuestion = 0;
+    for(let question of this.questions){
+      question.success = "noAnswer";
+    }
+    this.emitQuestions();
     this.emitNumberOfAnswerdQuestion();
     this.emitNote();
   }
@@ -85,6 +92,7 @@ export class QuestionsService {
       }
     );
     this.questions.splice(questionIndexToRemove,1);
+    console.log(this.questions);
     this.saveQuestions();
     this.emitQuestions();
   }

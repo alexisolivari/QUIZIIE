@@ -39,6 +39,7 @@ export class QuestionsService {
         question.success = 'noAnswer';
       }
       firebase.database().ref('/questions').set(this.questions);
+      console.log("Question ajoutée: " + this.questions.toString() + "|");
     }
   }
 

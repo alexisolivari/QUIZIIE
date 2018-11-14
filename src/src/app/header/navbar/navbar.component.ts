@@ -10,16 +10,26 @@ import {AuthService} from "../../services/auth.service";
 export class NavbarComponent implements OnInit {
 
   isAuth: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private authService: AuthService) { }
-
   ngOnInit() {
     firebase.auth().onAuthStateChanged(
       (user) => {
-        if(user) {
+        if(user)
+        {
           this.isAuth = true;
+          if (this.authService.getUserInfo().isAdmin)
+          {
+            this.isAdmin = true;
+          }
+          else
+          {
+            this.isAdmin = false;
+          }
         }
         else{
+          this.isAdmin = false;
           this.isAuth = false;
         }
 

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
     <h2> Questions </h2>
+    <h3 *ngIf="isEmpty"> Vous avez répondu à toutes les questions de la base: Bravo ;)</h3>
     <div class="list-group list-group-item" *ngFor="let question of listOfRandomQuestions; let indexQuestion = index">
       <div class="list-group-item">
         <h3 class="list-group-item-heading">
@@ -8,7 +9,7 @@
           <button class="btn btn-default pull-right" (click)="onViewQuestion(indexQuestion)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
-          <button class="btn btn-default pull-right" (click)="onDeleteQuestion(question)">
+          <button class="btn btn-default pull-right" *ngIf="isAdmin" (click)="onDeleteQuestion(question)">
             <span class="glyphicon glyphicon-minus"></span>
           </button>
         </h3>

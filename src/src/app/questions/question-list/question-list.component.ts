@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import {Alert} from "selenium-webdriver";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {AlertComponent} from "../../utilities/alert/alert.component";
+import * as firebase from "firebase";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-question-list',
@@ -18,6 +20,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   questions: Questions[];
   questionsSubscription: Subscription;
+  isEmpty : boolean = false;
 
   listOfRandomQuestions: Questions[] = [];
 
@@ -31,8 +34,12 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   buttonColor: string = "btn-primary";
 
+  isAuth = false;
+  isAdmin = false;
 
-  constructor(private questionsService: QuestionsService,
+
+  constructor(private authService: AuthService,
+              private questionsService: QuestionsService,
               private router: Router,
               private dialog: MatDialog) {
   }
@@ -66,6 +73,29 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
     this.resetNotAndAnswer();
     this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
+
+    firebase.auth().onAuthStateChanged(
+      (user) => {
+        if(user)
+        {
+          this.isAuth = true;
+          if (this.authService.getUserInfo().isAdmin)
+          {
+            this.isAdmin = true;
+          }
+          else
+            {
+              this.isAdmin = false;
+            }
+        }
+        else
+          {
+            this.isAdmin = false;
+            this.isAuth = false;
+          }
+
+      })
+
   }
 
   resetNotAndAnswer() {
@@ -194,7 +224,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       listOfRandomQuestion.push(questionsList[index]);
       // questionsList.splice(index, 1);
     }
-
+    this.isEmpty = (listOfRandomQuestion.length === 0);
     return listOfRandomQuestion;
 
   }

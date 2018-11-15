@@ -149,7 +149,6 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     }
       while (listOfRandomNumber.length < numberOfQuestion) {
         randomNumber = this.randomInt(0, questionsList.length-1);
-        console.log(randomNumber, randomNumber in listOfRandomNumber, listOfRandomNumber);
 
         while (listOfRandomNumber.indexOf(randomNumber) !== -1) {
 

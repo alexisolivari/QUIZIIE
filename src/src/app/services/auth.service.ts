@@ -19,21 +19,47 @@ export class AuthService {
 
   getUserInfo()
   {
-    var user = null;
+    let user = null;
     firebase.database().ref("/users/"+firebase.auth().currentUser.uid).on('value', (data) => {
       console.log("Getting userInfo: " + data);
       if (data.val())
       {
         user = data.val();
+        console.log(user.email);
       }
       else
       {
-        console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP" + firebase.auth().currentUser.email);
+        console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
       }
     }
     );
     return user;
   }
+
+  getUsersNumber()
+  {
+    let i = 0;
+    firebase.database().ref("/userNumber").on('value', (data) => {
+      if (data.val())
+      {
+        i = data.val();
+        console.log("Number of user" + i);
+      }
+      else
+      {
+        i = -1;
+        console.log("Number of user undefined PD");
+      }
+    })
+    return i;
+  };
+
+  incr()
+  {
+    firebase.database().ref("/userNumber").set(this.getUsersNumber() + 1);
+  }
+
+
 
   createNewUser(email: string, password: string){
     return new Promise(
@@ -57,7 +83,11 @@ export class AuthService {
       (resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email,password).then(
           () => {
-            this.getUserInfo();
+            if (this.getUserInfo()===null)
+            {
+              let uid =   firebase.auth().currentUser.uid;
+              this.setUserInfo(new UserInfoModel(email, [], false, uid));
+            }
             resolve();
           },
           (error) => {

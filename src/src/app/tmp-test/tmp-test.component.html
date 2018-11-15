@@ -1,3 +1,21 @@
-<p>
-{{currentUser}}
-</p>
+
+<p>{{currentUser}}</p>
+<div class="list-group list-group-item" *ngFor="let user of userList;">
+
+
+
+  <ul>
+    <li>
+      Email: {{user.email}}
+    </li>
+    <li>
+      isAdmin: {{user.isAdmin }}
+    </li>
+  <li *ngIf="!user.isAdmin">
+    <button  (click)="upgradeStatus(user)">
+      Promotion
+    </button>
+  </li>
+  </ul>
+</div>
+

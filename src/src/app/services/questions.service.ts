@@ -49,7 +49,7 @@ export class QuestionsService {
       this.questions = data.val() ? data.val() : [];
       this.emitQuestions();
     });
-    console.log(this.questions)
+    console.log("Getting question:" + this.questions);
   }
 
   getSingleQuestions(id: number){

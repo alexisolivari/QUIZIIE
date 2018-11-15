@@ -112,8 +112,9 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   }
 
   newQuestions(){
+    let l_questions = this.excludeQuestions(this.questions, this.questionsService.getQuestionsFromUsers())
     this.resetNotAndAnswer();
-    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION);
+    this.listOfRandomQuestions = this.generateRandomQuestions(l_questions, this.NUMBER_OF_QUESTION);
   }
 
   /* displayScore() {
@@ -135,17 +136,46 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     return Math.floor(Math.random() * (max-min +1)) +min
   }
 
+  equals(other1:Questions, other2:Questions) {
+    return other1.question === other2.question && other1.goodAnswer === other2.goodAnswer;
+  }
+
+  in(q : Questions, set : Questions[])
+  {
+    let i = 0;
+    for (i=0; i < set.length; i++){
+      if (this.equals(set[i],q)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  excludeQuestions(fullQuestionList : Questions[], questionListToRemove : Questions[])
+  {
+    let ret = [];
+    let i = 0;
+    let j = 0;
+    for (i=0; i<fullQuestionList.length; i++) {
+        let q1 = fullQuestionList[i];
+        if (!this.in(q1,questionListToRemove)) {
+          ret.push(q1);
+        }
+    }
+    return ret;
+  }
+
 
   generateRandomQuestions(questionsList : Questions[], numberOfQuestion : number  ){
     let listOfRandomQuestion : Questions[] = [];
     let listOfRandomNumber : number[] = [];
     let randomNumber : number;
 
-    if(numberOfQuestion <= this.questions.length) {
+    if(numberOfQuestion <= questionsList.length) {
         console.log("Number of question is ok");
     }
     else{
-      numberOfQuestion = this.questions.length;
+      numberOfQuestion = questionsList.length;
     }
       while (listOfRandomNumber.length < numberOfQuestion) {
         randomNumber = this.randomInt(0, questionsList.length-1);

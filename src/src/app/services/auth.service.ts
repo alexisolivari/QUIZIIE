@@ -67,7 +67,7 @@ export class AuthService {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
           () => {
             let uid =   firebase.auth().currentUser.uid;
-            this.setUserInfo(new UserInfoModel(email, [], false, uid));
+            this.setUserInfo(new UserInfoModel(email, false, uid));
             resolve();
           },
           (error) => {
@@ -86,7 +86,7 @@ export class AuthService {
             if (this.getUserInfo()===null)
             {
               let uid =   firebase.auth().currentUser.uid;
-              this.setUserInfo(new UserInfoModel(email, [], false, uid));
+              this.setUserInfo(new UserInfoModel(email, false, uid));
             }
             resolve();
           },

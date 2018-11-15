@@ -20,9 +20,31 @@ export class QuestionsService {
   constructor() {
     this.getQuestions();
   }
-
   emitQuestions() {
     this.questionsSubject.next(this.questions);
+  }
+
+  questionHash(question : Questions) {
+    let hash = 0, i, chr;
+    if ((question.question + question.goodAnswer).length === 0) return hash;
+    for (i = 0; i < (question.question + question.goodAnswer).length; i++) {
+      chr   = (question.question + question.goodAnswer).charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  };
+
+  getQuestionsFromUsers() {
+    let l_questionList = [];
+    let uid = firebase.auth().currentUser.uid;
+    console.log("Getting question list for " + "/users/"+uid+"/questions");
+    firebase.database().ref("/users/"+uid+"/questions").orderByChild("question").on("child_added", function(snapshot)
+    {
+      console.log("Getting questionList: " + snapshot.val().question);
+      l_questionList.push(snapshot.val());
+    })
+    return l_questionList;
   }
 
   emitNote(){
@@ -115,13 +137,13 @@ export class QuestionsService {
       buttonColor = "btn-danger";
       this.numberOfAnswerdQuestion +=1;
     }
-
     this.emitNumberOfAnswerdQuestion();
     this.emitQuestions();
+    let uid = firebase.auth().currentUser.uid;
+    firebase.database().ref("/users/" + uid + "/questions/" + this.questionHash(question)).set(question);
+    console.log("Path to add question: /users/" + uid + "/questions/" + this.questionHash(question));
 
     return buttonColor;
-
-
   }
 
 }

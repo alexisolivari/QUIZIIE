@@ -20,46 +20,23 @@ export class AuthService {
   getUserInfo()
   {
     let user = null;
-    firebase.database().ref("/users/"+firebase.auth().currentUser.uid).on('value', (data) => {
-      console.log("Getting userInfo: " + data);
-      if (data.val())
-      {
-        user = data.val();
-        console.log(user.email);
-      }
-      else
-      {
-        console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
-      }
+    let i = 0;
+    while (!user && i<3) {
+      firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
+          console.log("Getting userInfo: " + data);
+          if (data.val()) {
+            user = data.val();
+            console.log(user.email);
+          }
+          else {
+            console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
+          }
+        }
+      );
+      i = i+1;
     }
-    );
     return user;
   }
-
-  getUsersNumber()
-  {
-    let i = 0;
-    firebase.database().ref("/userNumber").on('value', (data) => {
-      if (data.val())
-      {
-        i = data.val();
-        console.log("Number of user" + i);
-      }
-      else
-      {
-        i = -1;
-        console.log("Number of user undefined PD");
-      }
-    })
-    return i;
-  };
-
-  incr()
-  {
-    firebase.database().ref("/userNumber").set(this.getUsersNumber() + 1);
-  }
-
-
 
   createNewUser(email: string, password: string){
     return new Promise(
@@ -85,6 +62,7 @@ export class AuthService {
           () => {
             if (this.getUserInfo()===null)
             {
+              console.log("User added on Db");
               let uid =   firebase.auth().currentUser.uid;
               this.setUserInfo(new UserInfoModel(email, false, uid));
             }

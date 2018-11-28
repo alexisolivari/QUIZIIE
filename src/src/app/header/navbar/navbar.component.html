@@ -18,7 +18,10 @@
         <a routerLink="auth/signin"> Connexion</a>
       </li>
       <li routerLinkActive="active" *ngIf="isAdmin">
-        <a routerLink="tmp-test"> Test</a>
+        <a routerLink="tmp-test">Gérer les utilisateurs</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAdmin">
+        <a routerLink="questions/questionAdmin">Questions admin</a>
       </li>
       <li >
         <a (click)="onSignOut()" *ngIf="isAuth" style="cursor: pointer;"> Déconnexion </a>

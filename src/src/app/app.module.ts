@@ -19,6 +19,8 @@ import { AlertComponent } from './utilities/alert/alert.component';
 import {MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { TmpTestComponent } from './tmp-test/tmp-test.component';
+import { QuestionListAdminComponent } from './questions/question-list-admin/question-list-admin.component';
+import {AdminGuardService} from "./services/admin-guard.service";
 
 
 
@@ -26,9 +28,10 @@ const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent },
   {path: 'auth/signin' , component: SigninComponent },
   {path: 'questions/question', canActivate: [AuthGuardService] , component: QuestionListComponent },
+  {path: 'questions/questionAdmin', canActivate: [AdminGuardService], component: QuestionListAdminComponent},
   {path: 'questions/new', canActivate: [AuthGuardService] , component: QuestionsFormComponent },
   {path: 'questions/view/:id', component: QuestionComponent},
-  {path: 'tmp-test', component: TmpTestComponent},
+  {path: 'tmp-test',canActivate: [AdminGuardService], component: TmpTestComponent},
   {path: '', redirectTo: 'questions/question', pathMatch: 'full'},
   {path: '**', redirectTo: 'questions/question'}
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
@@ -46,7 +49,8 @@ const appRoutes: Routes = [
     QuestionsFormComponent,
     QuestionListComponent,
     AlertComponent,
-    TmpTestComponent
+    TmpTestComponent,
+    QuestionListAdminComponent
   ],
   imports: [
     BrowserModule,

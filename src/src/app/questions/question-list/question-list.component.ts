@@ -108,7 +108,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.questionsService.getQuestions();
   }
 
-  onDeleteQuestion(question: Questions){
+  /*onDeleteQuestion(question: Questions){
     this.questionsService.removeQuestion(question);
     this.resetNotAndAnswer();
     this.questionsService.getQuestions();
@@ -117,7 +117,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   onViewQuestion(id : number){
     this.router.navigate(['/questions/view/' + id]);
     this.resetNotAndAnswer();
-  }
+  }*/
 
   onValidateAnswer(answer: string, question: Questions, indexQuestion : number, indexAnswer : number ) {
     this.buttonColor = this.questionsService.validateAnswer(answer, question);

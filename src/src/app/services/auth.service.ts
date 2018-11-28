@@ -10,15 +10,38 @@ import {Subject} from "rxjs";
 
 
 export class AuthService {
-
   user : UserInfoModel = new UserInfoModel("epic_fix", null, null);
   userSubject = new Subject<UserInfoModel>();
+
+  isAdmin : boolean = false;
+  isAdminSubject = new Subject<Boolean>();
+
+  isAuth : boolean =false;
+  isAuthSubject = new Subject<Boolean>();
 
   constructor() {
   }
 
   emitUser() {
     this.userSubject.next(this.user);
+  }
+
+  emitIsAuth() {
+    this.isAuthSubject.next(this.isAuth);
+  }
+
+  emitIsAdmin() {
+    this.isAdminSubject.next(this.isAdmin);
+  }
+
+  setIsAuth(boolean : boolean){
+    this.isAuth = boolean;
+    this.emitIsAuth();
+  }
+
+  setIsAdmin(boolean: boolean){
+    this.isAdmin = boolean;
+    this.emitIsAdmin();
   }
 
   setUserInfo(userInfo: UserInfoModel)
@@ -33,6 +56,7 @@ export class AuthService {
         firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
             console.log("Getting userInfo: " + data.val());
             if (data.val()) {
+              this.setIsAuth(true);
               let jpp = data.val();
               let previous_user = new UserInfoModel(this.user.email, this.user.isAdmin, this.user.uid);
               console.log("TestAdmin " + (jpp.isAdmin.toString() === "true"));
@@ -48,6 +72,7 @@ export class AuthService {
               previous_user.uid = jpp.uid;
               if (previous_user.email != this.user.email) {
                 this.user = previous_user;
+                this.setIsAdmin(previous_user.isAdmin);
                 this.emitUser();
               }
               console.log("User email getted: " + this.user.email);

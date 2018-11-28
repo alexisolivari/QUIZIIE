@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import {UserInfoModel} from "../models/UserInfoModel.model";
+import {Questions} from "../models/Questions.model";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,15 @@ import {UserInfoModel} from "../models/UserInfoModel.model";
 
 export class AuthService {
 
-  constructor() { }
+  user : UserInfoModel = null;
+  userSubject = new Subject<UserInfoModel>();
+
+  constructor() {
+  }
+
+  emitUser() {
+    this.userSubject.next(this.user);
+  }
 
   setUserInfo(userInfo: UserInfoModel)
   {
@@ -19,23 +29,28 @@ export class AuthService {
 
   getUserInfo()
   {
-    let user = null;
-    let i = 0;
-    while (!user && i<3) {
-      firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
-          console.log("Getting userInfo: " + data);
-          if (data.val()) {
-            user = data.val();
-            console.log(user.email);
-          }
-          else {
-            console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
-          }
+
+
+
+        let i = 0;
+        while (!this.user && i < 1) {
+          console.log("test")
+          console.log("/users/" + firebase.auth().currentUser.uid);
+          firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
+              console.log("Getting userInfo: " + data.val());
+              if (data.val()) {
+                this.user = data.val();
+                this.emitUser();
+                console.log("User email getted: " + this.user.email);
+              }
+              else {
+                console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
+              }
+            }
+          );
+          i = i + 1;
         }
-      );
-      i = i+1;
-    }
-    return user;
+
   }
 
   createNewUser(email: string, password: string){
@@ -64,7 +79,6 @@ export class AuthService {
             {
               console.log("User added on Db");
               let uid =   firebase.auth().currentUser.uid;
-              this.setUserInfo(new UserInfoModel(email, false, uid));
             }
             resolve();
           },

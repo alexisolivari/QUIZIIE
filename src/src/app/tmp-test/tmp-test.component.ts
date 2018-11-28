@@ -32,6 +32,13 @@ export class TmpTestComponent implements OnInit {
   upgradeStatus(user : UserInfoModel)
   {
     firebase.database().ref("/users/" + user.uid + "/isAdmin").set("true");
+    this.userList = this.getUserList();
+  }
+
+  downgradeStatus(user : UserInfoModel)
+  {
+    firebase.database().ref("/users/" + user.uid + "/isAdmin").set("false");
+    this.userList = this.getUserList();
   }
 
   ngOnInit() {

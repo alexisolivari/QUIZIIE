@@ -1,19 +1,19 @@
 
 <p>{{currentUser}}</p>
-<div class="list-group list-group-item" *ngFor="let user of userList;">
-
-
-
-  <ul>
-    <li>
+<div *ngFor="let user of userList;">
+  <ul class="list-group">
+    <li class="list-group-item">
       Email: {{user.email}}
     </li>
-    <li>
+    <li class="list-group-item">
       isAdmin: {{user.isAdmin }}
     </li>
-  <li *ngIf="!user.isAdmin">
-    <button  (click)="upgradeStatus(user)">
+  <li  class="list-group-item">
+    <button  *ngIf="!user.isAdmin" (click)="upgradeStatus(user)" class="btn btn-default">
       Promotion
+    </button>
+    <button  *ngIf="user.isAdmin" (click)="downgradeStatus(user)" class="btn btn-default">
+      Dégradation
     </button>
   </li>
   </ul>

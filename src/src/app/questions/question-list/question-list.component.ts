@@ -73,7 +73,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
     this.resetNotAndAnswer();
     this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
-
+  /*
     firebase.auth().onAuthStateChanged(
       (user) => {
         if(user)
@@ -95,7 +95,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
           }
 
       })
-
+  */
   }
 
   resetNotAndAnswer() {

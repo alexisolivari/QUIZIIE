@@ -11,7 +11,7 @@ import {Subject} from "rxjs";
 
 export class AuthService {
 
-  user : UserInfoModel = null;
+  user : UserInfoModel = new UserInfoModel("epic_fix", null, null);
   userSubject = new Subject<UserInfoModel>();
 
   constructor() {
@@ -29,28 +29,39 @@ export class AuthService {
 
   getUserInfo()
   {
-
-
-
-        let i = 0;
-        while (!this.user && i < 1) {
-          console.log("test")
-          console.log("/users/" + firebase.auth().currentUser.uid);
-          firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
-              console.log("Getting userInfo: " + data.val());
-              if (data.val()) {
-                this.user = data.val();
-                this.emitUser();
-                console.log("User email getted: " + this.user.email);
+      if (firebase.auth().currentUser) {
+        firebase.database().ref("/users/" + firebase.auth().currentUser.uid).on('value', (data) => {
+            console.log("Getting userInfo: " + data.val());
+            if (data.val()) {
+              let jpp = data.val();
+              let previous_user = new UserInfoModel(this.user.email, this.user.isAdmin, this.user.uid);
+              console.log("TestAdmin " + (jpp.isAdmin.toString() === "true"));
+              console.log("BOOLEAN" + jpp.isAdmin);
+              if (jpp.isAdmin.toString() === "true") {
+                console.log("ON EST LA");
+                previous_user.isAdmin = true;
               }
               else {
-                console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
+                previous_user.isAdmin = false;
               }
+              previous_user.email = jpp.email;
+              previous_user.uid = jpp.uid;
+              if (previous_user.email != this.user.email) {
+                this.user = previous_user;
+                this.emitUser();
+              }
+              console.log("User email getted: " + this.user.email);
             }
-          );
-          i = i + 1;
-        }
+            else {
+              console.log("IL EST PAS DANS LA BASE DE DONNEE CE FDP");
+              this.user.email = null;
+              this.user.isAdmin = null;
+              this.user.uid = null;
+            }
 
+          }
+        );
+      }
   }
 
   createNewUser(email: string, password: string){

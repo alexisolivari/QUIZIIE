@@ -19,8 +19,12 @@ import { AlertComponent } from './utilities/alert/alert.component';
 import {MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { TmpTestComponent } from './tmp-test/tmp-test.component';
+<<<<<<< HEAD
 import { QuestionListAdminComponent } from './questions/question-list-admin/question-list-admin.component';
 import {AdminGuardService} from "./services/admin-guard.service";
+=======
+import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
+>>>>>>> 81bda3b867283e2e9de838d96936fd1064ebb00f
 
 
 
@@ -50,7 +54,11 @@ const appRoutes: Routes = [
     QuestionListComponent,
     AlertComponent,
     TmpTestComponent,
+<<<<<<< HEAD
     QuestionListAdminComponent
+=======
+    AcountSettingsComponent
+>>>>>>> 81bda3b867283e2e9de838d96936fd1064ebb00f
   ],
   imports: [
     BrowserModule,

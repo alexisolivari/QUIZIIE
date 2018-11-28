@@ -21,10 +21,13 @@ export class TmpTestComponent implements OnInit {
   getUserList()
   {
     let l_userList = [];
+    let user = null;
     let ref = firebase.database().ref("/users");
     ref.orderByChild("email").on("child_added", function(snapshot) {
       console.log("Getting userList: " + snapshot.val().email);
-      l_userList.push(snapshot.val());
+      user = new UserInfoModel(snapshot.val().email, snapshot.val().isAdmin.toString()==="true", snapshot.val().uid);
+      console.log(user.email + "   " + user.isAdmin)
+      l_userList.push(user);
     })
     return l_userList;
   }

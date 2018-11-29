@@ -19,6 +19,7 @@ import { AlertComponent } from './utilities/alert/alert.component';
 import {MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { TmpTestComponent } from './tmp-test/tmp-test.component';
+import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
 
 
 
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
     QuestionsFormComponent,
     QuestionListComponent,
     AlertComponent,
-    TmpTestComponent
+    TmpTestComponent,
+    AcountSettingsComponent
   ],
   imports: [
     BrowserModule,

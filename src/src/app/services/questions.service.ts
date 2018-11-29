@@ -79,7 +79,8 @@ export class QuestionsService {
       (resolve, reject) => {
         firebase.database().ref('/questions/' + id).once('value').then( (data)=> {
             let jpp = data.val();
-            let question : Questions = new Questions("", [], "");
+            let question : Questions = new Questions("", "", [], "");
+            question.auteur = jpp.auteur;
             question.goodAnswer = jpp.goodAnswer;
             question.question = jpp.question;
             question.answers = jpp.answers;

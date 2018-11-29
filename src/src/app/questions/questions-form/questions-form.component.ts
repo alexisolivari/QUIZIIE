@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {QuestionsService} from "../../services/questions.service";
 import {Router} from "@angular/router";
 import {Questions} from "../../models/Questions.model";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-questions-form',
@@ -16,7 +17,8 @@ export class QuestionsFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private questionService: QuestionsService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm()
@@ -44,8 +46,7 @@ export class QuestionsFormComponent implements OnInit {
     answers.push(this.questionForm.get('answer3').value);
     answers.push(this.questionForm.get('answer4').value);
     const goodAnswer = this.questionForm.get('goodAnswer').value;
-
-    const newQuestion = new Questions(question, answers, goodAnswer);
+    const newQuestion = new Questions(this.authService.user.pseudo, question, answers, goodAnswer);
     this.questionService.createNewQuestion(newQuestion);
     this.router.navigate(['/questions/question']);
   }

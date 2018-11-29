@@ -18,7 +18,7 @@ export class QuestionComponent implements OnInit {
             ) { }
 
   ngOnInit() {
-    this.question = new Questions('', [],'César');
+    this.question = new Questions('Yeti', '', [],'César');
     const id = this.route.snapshot.params['id'];
     this.questionService.getSingleQuestions(+id).then(
       (question: Questions) => {

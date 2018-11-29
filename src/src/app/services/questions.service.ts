@@ -77,8 +77,14 @@ export class QuestionsService {
   getSingleQuestions(id: number){
     return new Promise(
       (resolve, reject) => {
-        firebase.database().ref('/questions' + id).once('value').then( (data)=> {
-            resolve(data.val());
+        firebase.database().ref('/questions/' + id).once('value').then( (data)=> {
+            let jpp = data.val();
+            let question : Questions = new Questions("", [], "");
+            question.goodAnswer = jpp.goodAnswer;
+            question.question = jpp.question;
+            question.answers = jpp.answers;
+            question.success = jpp.success;
+            resolve(question);
           },
           (error) => {
             reject(error);

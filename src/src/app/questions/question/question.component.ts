@@ -29,7 +29,7 @@ export class QuestionComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['/questions/question']);
+    this.router.navigate(['/questions/questionAdmin']);
   }
 
 }

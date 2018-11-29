@@ -5,12 +5,12 @@
   <div class="col-sm-8 col-sm-offset-2">
     <h2>Bienvenue sur QUIZIIE !</h2>
     <h3>Il ne vous reste plus qu'à choisir un pseudo !!!</h3>
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="PseudoForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="pseudo">Pseudo</label>
-        <input type="text" id="pseudo" class="form-control" formControlName>
+        <input type="text" id="pseudo" class="form-control" formControlName="pseudo">
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="signInForm.invalid">
+      <button class="btn btn-primary" type="submit" [disabled]="PseudoForm.invalid">
         Confirmer
       </button>
     </form>

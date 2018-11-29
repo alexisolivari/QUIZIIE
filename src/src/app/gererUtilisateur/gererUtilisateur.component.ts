@@ -25,7 +25,7 @@ export class GererUtilisateurComponent implements OnInit {
     let ref = firebase.database().ref("/users");
     ref.orderByChild("email").on("child_added", function(snapshot) {
       console.log("Getting userList: " + snapshot.val().email);
-      user = new UserInfoModel(snapshot.val().email, snapshot.val().isAdmin.toString()==="true", snapshot.val().uid);
+      user = new UserInfoModel(snapshot.val().pseudo, snapshot.val().email, snapshot.val().isAdmin.toString()==="true", snapshot.val().uid);
       console.log(user.email + "   " + user.isAdmin)
       l_userList.push(user);
     })

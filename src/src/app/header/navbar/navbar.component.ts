@@ -74,6 +74,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.authService.setIsAuth(false);
     this.authService.setIsAdmin(false);
     this.user.email = "";
+    this.user.pseudo = "";
   }
 
   ngOnDestroy(){

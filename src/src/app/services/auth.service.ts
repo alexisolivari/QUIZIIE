@@ -10,7 +10,7 @@ import {Subject} from "rxjs";
 
 
 export class AuthService {
-  user : UserInfoModel = new UserInfoModel("","epic_fix", null, null);
+  user : UserInfoModel = new UserInfoModel(null,"epic_fix", null, null);
   userSubject = new Subject<UserInfoModel>();
 
   isAdmin : boolean = false;

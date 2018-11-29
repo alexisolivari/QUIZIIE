@@ -13,6 +13,7 @@ import {AuthService} from "../../services/auth.service";
 export class QuestionsFormComponent implements OnInit {
 
   questionForm: FormGroup;
+  goodAnswer = 1;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -21,6 +22,7 @@ export class QuestionsFormComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
+    this.goodAnswer = 1;
     this.initForm()
 
   }
@@ -33,10 +35,16 @@ export class QuestionsFormComponent implements OnInit {
         answer2: ['', Validators.required],
         answer3: ['', Validators.required],
         answer4: ['', Validators.required],
-        goodAnswer: ['', Validators.required]
       }
     );
   }
+
+  update(i)
+  {
+    this.goodAnswer = i;
+  }
+
+
 
   onSaveQuestion(){
     const question = this.questionForm.get('question').value;
@@ -45,7 +53,7 @@ export class QuestionsFormComponent implements OnInit {
     answers.push(this.questionForm.get('answer2').value);
     answers.push(this.questionForm.get('answer3').value);
     answers.push(this.questionForm.get('answer4').value);
-    const goodAnswer = this.questionForm.get('goodAnswer').value;
+    const goodAnswer = answers[this.goodAnswer-1];
     const newQuestion = new Questions(this.authService.user.pseudo, question, answers, goodAnswer);
     this.questionService.createNewQuestion(newQuestion);
     this.router.navigate(['/questions/question']);

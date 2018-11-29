@@ -1,0 +1,19 @@
+<div style="text-align:center">
+  <img width="400" alt="Logo QuizzIIE" src="src/favicon.png"> <br>
+</div>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h2>Bienvenue sur QUIZIIE !</h2>
+    <h3>Il ne vous reste plus qu'à choisir un pseudo !!!</h3>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="pseudo">Pseudo</label>
+        <input type="text" id="pseudo" class="form-control" formControlName>
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="signInForm.invalid">
+        Confirmer
+      </button>
+    </form>
+    <p class="text-danger">{{ errorMessage}}</p>
+  </div>
+</div>

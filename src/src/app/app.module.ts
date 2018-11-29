@@ -20,6 +20,7 @@ import {MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { TmpTestComponent } from './tmp-test/tmp-test.component';
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
+import { TransitionComponent } from './transition/transition.component';
 
 
 
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   {path: 'questions/new', canActivate: [AuthGuardService] , component: QuestionsFormComponent },
   {path: 'questions/view/:id', component: QuestionComponent},
   {path: 'tmp-test', component: TmpTestComponent},
+  {path: 'transition', component: TransitionComponent},
   {path: '', redirectTo: 'questions/question', pathMatch: 'full'},
   {path: '**', redirectTo: 'questions/question'}
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     QuestionListComponent,
     AlertComponent,
     TmpTestComponent,
-    AcountSettingsComponent
+    AcountSettingsComponent,
+    TransitionComponent
   ],
   imports: [
     BrowserModule,

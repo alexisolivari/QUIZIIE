@@ -5,11 +5,11 @@ import {UserInfoModel} from "../models/UserInfoModel.model";
 import {Subject} from "rxjs";
 
 @Component({
-  selector: 'app-tmp-test',
-  templateUrl: './tmp-test.component.html',
-  styleUrls: ['./tmp-test.component.css']
+  selector: 'app-gererUtilisateur',
+  templateUrl: './gererUtilisateur.component.html',
+  styleUrls: ['./gererUtilisateur.component.css']
 })
-export class TmpTestComponent implements OnInit {
+export class GererUtilisateurComponent implements OnInit {
 
   userList : UserInfoModel[] = [];
   currentUser = "Email: " + firebase.auth().currentUser.email;

@@ -1,41 +1,45 @@
 
 <div class="wrapper">
-
-  <div id="banner" class="container"></div>
   <div id="welcome" class="container">
-    <img width="400" alt="Logo QuizzIIE" src="src/favicon.png">
+    <img width="500" alt="Logo QuizzIIE" src="src/favicon.png">
     <div class="title">
       <h2>Bienvenue sur Quiziie !! </h2>
     </div>
     <p>Sur ce site, vous allez pouvoir répondre à des quizz amusant. Qui vous feront découvrir pas mal de choses plutot cocasses sur vos camarades. Et vous pourrez aussi ajouter vos propres expériences pour faire partager les autres ! </p>
   </div>
   <div id="three-column" class="container">
-    <div><span class="arrow-down"></span></div>
-    <div id="tbox1" >
-      <div class="title">
+    <div class="panel panel-default" id="tbox1" >
+      <div class="panel-body">
+      <div class="title" style="height:50px">
         <h2>Vous n'avez pas encore de compte ?</h2>
       </div>
-      <p>N'attendez plus ! Venez rejoindre notre communauté et créez un compte!</p>
-      <div routerLinkActive="active">
-      <a routerLink="/auth/signup" class="button">Créer un compte</a> </div>
+      <p style="height: 125px">N'attendez plus ! Venez rejoindre notre communauté et créez un compte!</p>
+      <button routerLink="/auth/signup" type="button" routerLinkActive="active" class="btn btn-primary">
+      Créer un compte </button>
     </div>
-    <div id="tbox2">
-      <div class="title">
+    </div>
+    <div  class="panel panel-default" id="tbox2">
+      <div class="panel-body">
+      <div class="title" style="height:50px">
         <h2>Vous avez déjà un compte ?</h2>
       </div>
-      <p>Venez voir nos nouvelles questions toujours plus croustillantes ! Et n'hésitez pas à nous proposer de nouvelles questions.</p>
-      <div routerLinkActive="active">
-        <a routerLink="/auth/signin" class="button">Se connecter</a> </div> </div>
-    <div id="tbox3">
-      <div class="title">
+      <p style="height: 125px">Venez voir nos nouvelles questions toujours plus croustillantes ! Et n'hésitez pas à nous proposer de nouvelles questions.</p>
+      <button routerLink="/auth/signin" type="button" routerLinkActive="active" class="btn btn-primary">
+        Se connecter </button> </div>
+    </div>
+    <div class="panel panel-default" id="tbox3">
+      <div class="panel-body" >
+      <div class="title" style="height:50px">
         <h2>Accéder au questionnaire</h2>
       </div>
-      <p>N'attendez plus et venez faire une petite partie. Vous ne le regretterez pas.</p>
-      <div routerLinkActive="active">
-        <a routerLink="/questions/question" class="button">Jouer</a> </div> </div>
+      <p style="height: 125px" >N'attendez plus et venez faire une petite partie. Vous ne le regretterez pas.</p>
+      <button type="button" routerLinkActive="active" class="btn btn-primary" routerLink="/questions/question">
+        Jouer </button> </div>
+    </div>
   </div>
 </div>
-<div id="footer">
+
+<!--<div id="footer">
   <div class="container">
     <div class="fbox1">
       <span class="icon icon-map-marker"></span>
@@ -53,4 +57,4 @@
       <span>quiziie@gmail.com</span>
     </div>
   </div>
-</div>
+</div>-->

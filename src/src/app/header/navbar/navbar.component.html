@@ -28,8 +28,8 @@
       <li routerLinkActive="active" *ngIf="isAdmin">
         <a routerLink="questions/questionAdmin">Questions admin</a>
       </li>
-      <li >
-        <a (click)="onSignOut()" *ngIf="isAuth" style="cursor: pointer;"> Déconnexion </a>
+      <li routerLinkActive="active" >
+        <a routerLink="home" (click)="onSignOut()" *ngIf="isAuth" style="cursor: pointer;"> Déconnexion </a>
       </li>
     </ul>
   </div>

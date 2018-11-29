@@ -24,6 +24,7 @@ import {AdminGuardService} from "./services/admin-guard.service";
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
 import { TransitionComponent } from './transition/transition.component';
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     TransitionComponent,
     QuestionListAdminComponent,
     AcountSettingsComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

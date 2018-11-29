@@ -33,6 +33,7 @@ export class TransitionComponent implements OnInit {
     const pseudo = this.PseudoForm.get('pseudo').value;
     let uid = this.authService.user.uid;
     firebase.database().ref("/users/"+uid+"/pseudo/").set(pseudo);
+    this.authService.user.pseudo = pseudo;
     this.router.navigate(['/questions/question']);
   }
 }

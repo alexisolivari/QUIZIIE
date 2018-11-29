@@ -11,6 +11,9 @@
       <li routerLinkActive="active">
         <a routerLink="questions/question"> Questions </a>
       </li>
+      <li >
+        <a style="color:hotpink"> <b>{{user.pseudo}}</b> </a>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active" *ngIf="!isAuth">

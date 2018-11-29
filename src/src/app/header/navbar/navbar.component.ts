@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
 import {AuthService} from "../../services/auth.service";
 import {Questions} from "../../models/Questions.model";
@@ -10,10 +10,13 @@ import {UserInfoModel} from "../../models/UserInfoModel.model";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   isAuth: boolean = false;
+  isAuthSubscription: Subscription;
+
   isAdmin: boolean = false;
+  isAdminSubscription: Subscription;
 
   user : UserInfoModel;
   userSubscription: Subscription;
@@ -33,12 +36,12 @@ export class NavbarComponent implements OnInit {
               console.log("tets2")
               if (user) {
                 console.log("log 1", this.user);
-                this.isAuth = true;
+                this.authService.setIsAuth(true);
                 if (this.user.isAdmin) {
-                  this.isAdmin = true;
+                  this.authService.setIsAdmin(true);
                 }
                 else {
-                  this.isAdmin = false;
+                  this.authService.setIsAdmin(false);
                 }
                 console.log(user.email, "log 2");
                 console.log(this.isAdmin);
@@ -50,17 +53,33 @@ export class NavbarComponent implements OnInit {
       }
     );
     this.authService.emitUser();
+
+    this.isAdminSubscription = this.authService.isAdminSubject.subscribe(
+      (isAdmin : boolean) => {
+        this.isAdmin = isAdmin;
+      }
+    )
+    this.authService.emitIsAdmin();
+
+    this.isAuthSubscription = this.authService.isAuthSubject.subscribe(
+      (isAuth : boolean) => {
+        this.isAuth = isAuth;
+      }
+    )
+    this.authService.emitIsAuth();
   }
 
   onSignOut(){
     this.authService.signOutUser();
-    this.isAuth = false;
-    this.isAdmin = false;
+    this.authService.setIsAuth(false);
+    this.authService.setIsAdmin(false);
     this.user.email = "";
   }
 
   ngOnDestroy(){
     this.userSubscription.unsubscribe();
+    this.isAuthSubscription.unsubscribe();
+    this.isAdminSubscription.unsubscribe();
   }
 
 }

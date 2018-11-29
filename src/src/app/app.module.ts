@@ -23,12 +23,14 @@ import { QuestionListAdminComponent } from './questions/question-list-admin/ques
 import {AdminGuardService} from "./services/admin-guard.service";
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
 import { TransitionComponent } from './transition/transition.component';
+import { HomeComponent } from './home/home.component';
 
 
 
 const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent },
   {path: 'auth/signin' , component: SigninComponent },
+  {path: 'home', component: HomeComponent},
   {path: 'questions/question', canActivate: [AuthGuardService] , component: QuestionListComponent },
   {path: 'questions/questionAdmin', canActivate: [AdminGuardService], component: QuestionListAdminComponent},
   {path: 'questions/new', canActivate: [AuthGuardService] , component: QuestionsFormComponent },
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     AcountSettingsComponent,
     TransitionComponent,
     QuestionListAdminComponent,
-    AcountSettingsComponent
+    AcountSettingsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

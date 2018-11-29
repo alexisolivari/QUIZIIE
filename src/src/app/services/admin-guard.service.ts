@@ -25,7 +25,7 @@ export class AdminGuardService implements CanActivate{
             }
             else{
               console.log("nop")
-              this.router.navigate(['/questions']);
+              this.router.navigate(['/home']);
               resolve(false);
             }
           }

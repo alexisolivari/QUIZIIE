@@ -37,8 +37,8 @@ const appRoutes: Routes = [
   {path: 'questions/view/:id', component: QuestionComponent},
   {path: 'transition', component: TransitionComponent},
   {path: 'gererUtilisateur',canActivate: [AdminGuardService], component: GererUtilisateurComponent},
-  {path: '', redirectTo: 'questions/question', pathMatch: 'full'},
-  {path: '**', redirectTo: 'questions/question'}
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', redirectTo: 'home'}
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
   ];
 

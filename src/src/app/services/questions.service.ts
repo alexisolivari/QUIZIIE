@@ -64,6 +64,7 @@ export class QuestionsService {
     if (this.questions != []) {
       for (let question of this.questions) {
         question.success = 'noAnswer';
+        //question.questionVote = 0;
       }
       firebase.database().ref('/questions').set(this.questions);
       console.log("Question ajoutée: " + this.questions.toString() + "|");
@@ -84,11 +85,12 @@ export class QuestionsService {
       (resolve, reject) => {
         firebase.database().ref('/questions/' + id).once('value').then( (data)=> {
             let jpp = data.val();
-            let question : Questions = new Questions("", "", [], "");
+            let question : Questions = new Questions("", "", [], "", 0);
             question.auteur = jpp.auteur;
             question.goodAnswer = jpp.goodAnswer;
             question.question = jpp.question;
             question.answers = jpp.answers;
+            question.questionVote = jpp.questionVote
             question.success = jpp.success;
             resolve(question);
           },
@@ -109,6 +111,17 @@ export class QuestionsService {
     this.emitQuestions();
     this.emitNumberOfAnswerdQuestion();
     this.emitNote();
+  }
+
+  upVoteQuestion(question: Questions){
+    console.log(this.questions[this.questions.indexOf(question)]);
+    this.questions[this.questions.indexOf(question)].questionVote++;
+    this.emitQuestions();
+  }
+
+  downVoteQuestion(question: Questions){
+    this.questions[this.questions.indexOf(question)].questionVote--;
+    this.emitQuestions();
   }
 
   createNewQuestion(newQuestion: Questions){

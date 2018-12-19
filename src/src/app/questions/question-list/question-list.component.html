@@ -5,7 +5,19 @@
       <div class="list-group-item">
         <h3 class="list-group-item-heading">
           {{indexQuestion + 1}}. {{question.question}}
+          <span class="pull-right">{{question.questionVote}}</span>
+
+
+          <span *ngIf="condition(question)"><button class="btn btn-default pull-right" (click)="onUpVoteQuestion(question)">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+          </button>
+          <button class="btn btn-default pull-right" (click)="onDownVoteQuestion(question)">
+            <span class="glyphicon glyphicon-minus-sign"></span>
+          </button>
+            </span>
+
         </h3>
+
       </div>
       <div class="row">
         <div class="col-sm-6 " *ngFor="let answer of question.answers; let indexAnswer = index">

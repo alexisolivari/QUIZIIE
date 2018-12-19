@@ -36,8 +36,13 @@ export class QuestionsService {
   };
 
   getQuestionsFromUsers() {
-    let l_questionList = [];
     let uid = firebase.auth().currentUser.uid;
+    return this.getQuestionsFromUsers2(uid);
+  }
+
+  getQuestionsFromUsers2(uid)
+  {
+    let l_questionList = [];
     console.log("Getting question list for " + "/users/"+uid+"/questions");
     firebase.database().ref("/users/"+uid+"/questions").orderByChild("question").on("child_added", function(snapshot)
     {
@@ -133,11 +138,14 @@ export class QuestionsService {
       allQuestion.success = 'noAnswer';
     } */
     if(question.goodAnswer === answer ){
+      let uid = firebase.auth().currentUser.uid;
       question.success = 'goodAnswer';
       buttonColor = "btn-success";
       this.note += 1;
       this.numberOfAnswerdQuestion +=1;
       this.emitNote();
+      firebase.database().ref("/users/" + uid + "/questions/" + this.questionHash(question)).set(question);
+      console.log("Path to add question: /users/" + uid + "/questions/" + this.questionHash(question));
     }
     else {
       question.success = 'badAnswer';
@@ -146,9 +154,6 @@ export class QuestionsService {
     }
     this.emitNumberOfAnswerdQuestion();
     this.emitQuestions();
-    let uid = firebase.auth().currentUser.uid;
-    firebase.database().ref("/users/" + uid + "/questions/" + this.questionHash(question)).set(question);
-    console.log("Path to add question: /users/" + uid + "/questions/" + this.questionHash(question));
 
     return buttonColor;
   }

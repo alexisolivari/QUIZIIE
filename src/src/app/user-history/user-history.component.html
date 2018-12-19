@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2> Historique </h2>
+    <h3> Votre score: {{getScore(user, question_list)}}/{{question_list.length}}</h3>
+    <div class="list-group list-group-item" *ngFor="let question of user_question_list; let indexQuestion = index">
+      <div class="list-group-item">
+        <h3 class="list-group-item-heading">
+          {{indexQuestion + 1}}. {{question.question}}
+        </h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 " *ngFor="let answer of question.answers">
+              <div *ngIf="answer===question.goodAnswer" type="button" class="btn btn-success btn-block">
+              {{answer}}
+              </div>
+              <div *ngIf="answer!=question.goodAnswer" type="button" class="btn btn-danger btn-block">
+                {{answer}}
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,6 +25,8 @@ import { AcountSettingsComponent } from './acount-settings/acount-settings.compo
 import { TransitionComponent } from './transition/transition.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserHistoryComponent } from './user-history/user-history.component';
+import { LadderBoardComponent } from './ladder-board/ladder-board.component';
 
 
 
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   {path: 'questions/view/:id', component: QuestionComponent},
   {path: 'transition', component: TransitionComponent},
   {path: 'gererUtilisateur',canActivate: [AdminGuardService], component: GererUtilisateurComponent},
+  {path: 'user-history', canActivate: [AuthGuardService] , component: UserHistoryComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', redirectTo: 'home'}
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
@@ -61,7 +64,9 @@ const appRoutes: Routes = [
     QuestionListAdminComponent,
     AcountSettingsComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    UserHistoryComponent,
+    LadderBoardComponent
   ],
   imports: [
     BrowserModule,

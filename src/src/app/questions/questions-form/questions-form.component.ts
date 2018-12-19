@@ -54,7 +54,7 @@ export class QuestionsFormComponent implements OnInit {
     answers.push(this.questionForm.get('answer3').value);
     answers.push(this.questionForm.get('answer4').value);
     const goodAnswer = answers[this.goodAnswer-1];
-    const newQuestion = new Questions(this.authService.user.pseudo, question, answers, goodAnswer);
+    const newQuestion = new Questions(this.authService.user.pseudo, question, answers, goodAnswer, 0);
     this.questionService.createNewQuestion(newQuestion);
     this.router.navigate(['/questions/question']);
   }

@@ -22,9 +22,11 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "bootstrap": "^3.3.7",
+    "angular-5-popup": "0.0.6",
+    "bootstrap": "^3.3.4",
     "core-js": "^2.5.4",
     "firebase": "^5.5.4",
+    "ngx-modal-dialog": "^3.0.0",
     "require-from-string": "https://github.com/floatdrop/require-from-string/tarball/v1.1.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"

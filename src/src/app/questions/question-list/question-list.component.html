@@ -42,8 +42,36 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" (click)="displayScore()">Afficher le score.</button>
-  <button class="btn btn-primary" (click)="newQuestions()">Créer un nouveau questionnaire.</button>
-  <h2>Votre score : {{note}} / {{listOfRandomQuestions.length}}</h2>
+  <div class="text-center">
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-top: 15px" [disabled]="note === listOfRandomQuestions.length">J'ai fini !</button>
+  </div>
+  <br>
+  <div class="text-center">
   <button class="btn btn-primary" (click)="onNewQuestion()">Nouvelle question</button>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Bravo ! Vous avez un score de {{note}} / {{listOfRandomQuestions.length}} </h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+        <div class="text-center">
+          <button class="btn btn-primary" (click)="newQuestions()">Créer un nouveau questionnaire.</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -27,6 +27,9 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserHistoryComponent } from './user-history/user-history.component';
 import { LadderBoardComponent } from './ladder-board/ladder-board.component';
+import { PopUpComponent } from './questions/pop-up/pop-up.component';
+import {ModalDialogModule} from "ngx-modal-dialog";
+import { CustomModalComponent } from './questions/pop-up/custom-modal/custom-modal.component';
 
 
 
@@ -41,8 +44,10 @@ const appRoutes: Routes = [
   {path: 'transition', component: TransitionComponent},
   {path: 'gererUtilisateur',canActivate: [AdminGuardService], component: GererUtilisateurComponent},
   {path: 'user-history', canActivate: [AuthGuardService] , component: UserHistoryComponent},
+  {path: 'questions/popUp', component: PopUpComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', redirectTo: 'home'}
+
   /* {path: 'questions/singlequestion:id' , component: SingleQuestionComponent } */
   ];
 
@@ -66,7 +71,9 @@ const appRoutes: Routes = [
     HomeComponent,
     FooterComponent,
     UserHistoryComponent,
-    LadderBoardComponent
+    LadderBoardComponent,
+    PopUpComponent,
+    CustomModalComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +82,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalDialogModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -83,6 +91,6 @@ const appRoutes: Routes = [
     QuestionsService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AlertComponent]
+  entryComponents: [AlertComponent, CustomModalComponent]
 })
 export class AppModule { }

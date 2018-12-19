@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {Questions} from "../../models/Questions.model";
 import {Subscription} from "rxjs";
 import {QuestionsService} from "../../services/questions.service";
@@ -9,6 +9,7 @@ import {AlertComponent} from "../../utilities/alert/alert.component";
 import * as firebase from "firebase";
 import {AuthService} from "../../services/auth.service";
 import {relativeToRootDirs} from "@angular/compiler-cli/src/transformers/util";
+import {ModalDialogService, SimpleModalComponent} from "ngx-modal-dialog";
 
 @Component({
   selector: 'app-question-list',
@@ -44,7 +45,8 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
               private questionsService: QuestionsService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              ) {
   }
 
   ngOnInit() {
@@ -68,7 +70,6 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       (numberOfAnswerdQuestion: number) => {
         this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
         if (this.numberOfAnswerdQuestion === this.listOfRandomQuestions.length && this.listOfRandomQuestions.length != 0){
-          this.displayScore();
           this.resetNotAndAnswer();
           this.questionsService.saveQuestions();
         }
@@ -102,6 +103,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       })
   */
   }
+
 
   condition(question: Questions){
     console.log( "list of vote numbers" ,this.listOfVoteNumber)
@@ -158,12 +160,6 @@ export class QuestionListComponent implements OnInit, OnDestroy {
       }
     }
     return 'non';
-  }
-
-  displayScore(){
-    alert("Votre score est de :" + this.note + "/" + this.numberOfAnswerdQuestion);
-
-
   }
 
   newQuestions(){

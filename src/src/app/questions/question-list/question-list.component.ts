@@ -8,6 +8,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 import {AlertComponent} from "../../utilities/alert/alert.component";
 import * as firebase from "firebase";
 import {AuthService} from "../../services/auth.service";
+import {relativeToRootDirs} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-question-list',
@@ -25,6 +26,8 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   listOfRandomQuestions: Questions[] = [];
 
   listQuestionClickedId : number[][] = [];
+
+  listOfVoteNumber : number[] = [];
 
   note: number;
   noteSubscription: Subscription;
@@ -66,6 +69,8 @@ export class QuestionListComponent implements OnInit, OnDestroy {
         this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
         if (this.numberOfAnswerdQuestion === this.listOfRandomQuestions.length && this.listOfRandomQuestions.length != 0){
           this.displayScore();
+          this.resetNotAndAnswer();
+          this.questionsService.saveQuestions();
         }
       }
     );
@@ -98,7 +103,19 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   */
   }
 
+  condition(question: Questions){
+    console.log( "list of vote numbers" ,this.listOfVoteNumber)
+    if(question.questionVote === this.listOfVoteNumber[this.questionsService.questions.indexOf(question)]){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
+
   resetNotAndAnswer() {
+    this.listQuestionClickedId = [];
     this.questionsService.resetNoteAndQuestionAnswerd();
   }
 
@@ -118,6 +135,14 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/questions/view/' + id]);
     this.resetNotAndAnswer();
   }*/
+
+  onUpVoteQuestion(question : Questions){
+    this.questionsService.upVoteQuestion(question)
+  }
+
+  onDownVoteQuestion(question : Questions){
+    this.questionsService.downVoteQuestion(question)
+  }
 
   onValidateAnswer(answer: string, question: Questions, indexQuestion : number, indexAnswer : number ) {
     this.buttonColor = this.questionsService.validateAnswer(answer, question);
@@ -142,7 +167,15 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   }
 
   newQuestions(){
-    let l_questions = this.excludeQuestions(this.questions, this.questionsService.getQuestionsFromUsers())
+    console.log("questions en cash",this.listOfRandomQuestions);
+    console.log("questions dans la base de donnée" , this.questionsService.getQuestionsFromUsers())
+    this.listOfVoteNumber = [];
+    for (let question of this.questionsService.questions){
+      this.listOfVoteNumber.push(question.questionVote);
+    }
+    let l_questions = this.excludeQuestions(this.listOfRandomQuestions, this.questionsService.getQuestionsFromUsers());
+    this.resetNotAndAnswer();
+    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
     this.resetNotAndAnswer();
     this.listOfRandomQuestions = this.generateRandomQuestions(l_questions, this.NUMBER_OF_QUESTION);
   }
@@ -184,12 +217,9 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   excludeQuestions(fullQuestionList : Questions[], questionListToRemove : Questions[])
   {
     let ret = [];
-    let i = 0;
-    let j = 0;
-    for (i=0; i<fullQuestionList.length; i++) {
-        let q1 = fullQuestionList[i];
-        if (!this.in(q1,questionListToRemove)) {
-          ret.push(q1);
+    for (let question of fullQuestionList) {
+        if (!(question.question in questionListToRemove)) {
+          ret.push(question);
         }
     }
     return ret;
@@ -200,6 +230,11 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     let listOfRandomQuestion : Questions[] = [];
     let listOfRandomNumber : number[] = [];
     let randomNumber : number;
+
+    this.listOfVoteNumber = [];
+    for (let question of this.questionsService.questions){
+      this.listOfVoteNumber.push(question.questionVote);
+    }
 
     if(numberOfQuestion <= questionsList.length) {
         console.log("Number of question is ok");
@@ -222,6 +257,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
     for(let index of listOfRandomNumber){
       listOfRandomQuestion.push(questionsList[index]);
+
       // questionsList.splice(index, 1);
     }
     this.isEmpty = (listOfRandomQuestion.length === 0);

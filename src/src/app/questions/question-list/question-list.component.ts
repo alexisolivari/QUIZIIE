@@ -78,7 +78,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.questionsService.emitNumberOfAnswerdQuestion();
 
     this.resetNotAndAnswer();
-    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
+    this.newQuestions();
   /*
     firebase.auth().onAuthStateChanged(
       (user) => {
@@ -169,9 +169,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     for (let question of this.questionsService.questions){
       this.listOfVoteNumber.push(question.questionVote);
     }
-    let l_questions = this.excludeQuestions(this.listOfRandomQuestions, this.questionsService.getQuestionsFromUsers());
-    this.resetNotAndAnswer();
-    this.listOfRandomQuestions = this.generateRandomQuestions(this.questions, this.NUMBER_OF_QUESTION)
+    let l_questions = this.excludeQuestions(this.questions, this.questionsService.getQuestionsFromUsers());
     this.resetNotAndAnswer();
     this.listOfRandomQuestions = this.generateRandomQuestions(l_questions, this.NUMBER_OF_QUESTION);
   }
@@ -210,11 +208,24 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  isin(question : Questions, questionList : Questions[])
+  {
+    let i;
+    for (i=0; i<questionList.length;i++)
+    {
+      if (question.goodAnswer===questionList[i].goodAnswer && question.question===questionList[i].question)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   excludeQuestions(fullQuestionList : Questions[], questionListToRemove : Questions[])
   {
     let ret = [];
     for (let question of fullQuestionList) {
-        if (!(question.question in questionListToRemove)) {
+        if (!this.isin(question, questionListToRemove)) {
           ret.push(question);
         }
     }

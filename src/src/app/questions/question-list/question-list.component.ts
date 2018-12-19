@@ -69,39 +69,12 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.numberOfAnswerdQuestionSubscription = this.questionsService.numberOfAnswerdQuestionSubject.subscribe(
       (numberOfAnswerdQuestion: number) => {
         this.numberOfAnswerdQuestion = numberOfAnswerdQuestion;
-        if (this.numberOfAnswerdQuestion === this.listOfRandomQuestions.length && this.listOfRandomQuestions.length != 0){
-          this.resetNotAndAnswer();
-          this.questionsService.saveQuestions();
-        }
       }
     );
     this.questionsService.emitNumberOfAnswerdQuestion();
 
     this.resetNotAndAnswer();
     this.newQuestions();
-  /*
-    firebase.auth().onAuthStateChanged(
-      (user) => {
-        if(user)
-        {
-          this.isAuth = true;
-          if (this.authService.getUserInfo().isAdmin)
-          {
-            this.isAdmin = true;
-          }
-          else
-            {
-              this.isAdmin = false;
-            }
-        }
-        else
-          {
-            this.isAdmin = false;
-            this.isAuth = false;
-          }
-
-      })
-  */
   }
 
 

@@ -43,7 +43,7 @@
     </div>
   </div>
   <div class="text-center">
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-top: 15px" [disabled]="note === listOfRandomQuestions.length">J'ai fini !</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-top: 15px" [disabled]="numberOfAnswerdQuestion < listOfRandomQuestions.length">J'ai fini !</button>
   </div>
   <br>
   <div class="text-center">
@@ -60,16 +60,24 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Bravo ! Vous avez un score de {{note}} / {{listOfRandomQuestions.length}} </h4>
+        <h2 class="modal-title">Bravo ! Vous avez un score de {{note}} / {{listOfRandomQuestions.length}} </h2>
       </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-        <div class="text-center">
-          <button class="btn btn-primary" (click)="newQuestions()">Créer un nouveau questionnaire.</button>
+      <div class="modal-body text-center">
+        <div class="container-fluid">
+          <div class="row">
+        <h3 style="font-weight: bold">Excellent tu viens de terminer un questionnaire !</h3> <h4> Tu peux maintenant aller voir ton historique de questions.</h4> <h4> Afin de te rappeler toute ces croustillantes questions !</h4> <h4>  Tu peux aussi recommencer un nouveau quiz pour découvrir de nouveaux bails !</h4>
+        <p> N'hésite pas à voter pour les questions que tu trouves les plus droles</p>
+        <p>N'hésite pas non plus à créer tes propres questions ;)</p>
+          </div>
+
+        <div class="row">
+          <button class="btn btn-primary pull-left" routerLinkActive="active" routerLink="/user-history" data-dismiss="modal">Voir son historique</button>
+          <button class="btn btn-primary pull-right" (click)="newQuestions()" data-dismiss="modal">Rejouer</button>
+        </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
 

@@ -44,7 +44,6 @@ const appRoutes: Routes = [
   {path: 'transition', component: TransitionComponent},
   {path: 'gererUtilisateur',canActivate: [AdminGuardService], component: GererUtilisateurComponent},
   {path: 'user-history', canActivate: [AuthGuardService] , component: UserHistoryComponent},
-  {path: 'questions/popUp', component: PopUpComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', redirectTo: 'home'}
 

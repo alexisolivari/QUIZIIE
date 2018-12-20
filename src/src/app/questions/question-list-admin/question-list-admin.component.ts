@@ -20,6 +20,7 @@ export class QuestionListAdminComponent implements OnInit, OnDestroy {
 
   isEmpty : boolean = false;
 
+  public searchString: string;
 
   buttonColor: string = "btn-primary";
 
@@ -78,6 +79,10 @@ export class QuestionListAdminComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  transform(userList, value: string) {
+    return(this.questionsService.transform2(userList, value));
   }
 
 

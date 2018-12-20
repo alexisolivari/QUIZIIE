@@ -1,4 +1,4 @@
-<div class="row">
+<!--<div class="row">
   <div class="col-xs-12">
     <h2> Questions </h2>
     <h3 *ngIf="isEmpty"> Vous avez répondu à toutes les questions de la base: Bravo ;)</h3>
@@ -38,4 +38,65 @@
     </div>
   </div>
   <button class="btn btn-primary" (click)="onNewQuestion()">Nouvelle question</button>
-</div>
+</div> -->
+
+
+<div class="panel-body "><!-- [attr.class]="'tab-pane fad ' + activeArray[0]" -->
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+        <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-11">
+
+    <!-- https://www.npmjs.com/package/angular-6-datatable -->
+    <!-- <table class="table table-striped table-responsive col-md-6" [mfData]="transform(messages,searchField, searchString)" #mf="mfDataTable" [mfRowsOnPage]="5" style="table-layout: fixed"> -->
+    <table class="table table-striped" [mfData]="transform(questions, searchString)" #mf="mfDataTable" [mfRowsOnPage]="5">
+      <thead>
+      <tr>
+        <th style="width: 40%">
+          <mfDefaultSorter by="name">Question</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+          <mfDefaultSorter by="email">Réponses</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+          <mfDefaultSorter by="age">Bonne réponse</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="age">Voir la question</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="age">Supprimer la question</mfDefaultSorter>
+        </th>
+        <!--<th style="width: 20%">
+          <mfDefaultSorter by="city">City</mfDefaultSorter>
+        </th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of mf.data">
+        <td>{{item.question}}</td>
+        <td>{{item.answers}}</td>
+        <td>{{item.goodAnswer}}</td>
+        <td><button class="btn btn-default" (click)="onViewQuestion(questions.indexOf(item))">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </button>
+        </td>
+        <td><button class="btn btn-default" (click)="onDeleteQuestion(item)">
+          <span class="glyphicon glyphicon-minus"></span></button>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="4">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+      </tr>
+      </tfoot>
+    </table>

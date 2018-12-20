@@ -187,4 +187,18 @@ export class QuestionsService {
     );
   }
 
+  transform2(questions, value: string) {
+    if (!questions) {
+      return [];
+    }
+
+    if (!value){
+      return questions;
+    }
+
+    return questions.filter(question =>
+      question.question.toLowerCase().includes(value.toLowerCase())
+
+
+    );
 }

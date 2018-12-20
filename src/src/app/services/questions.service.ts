@@ -43,10 +43,8 @@ export class QuestionsService {
   getQuestionsFromUsers2(uid)
   {
     let l_questionList = [];
-    console.log("Getting question list for " + "/users/"+uid+"/questions");
     firebase.database().ref("/users/"+uid+"/questions").orderByChild("question").on("child_added", function(snapshot)
     {
-      console.log("Getting questionList: " + snapshot.val().question);
       l_questionList.push(snapshot.val());
     })
     return l_questionList;

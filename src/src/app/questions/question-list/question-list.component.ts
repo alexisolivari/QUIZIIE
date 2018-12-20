@@ -79,7 +79,6 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
 
   condition(question: Questions){
-    console.log( "list of vote numbers" ,this.listOfVoteNumber)
     if(question.questionVote === this.listOfVoteNumber[this.questionsService.questions.indexOf(question)]){
       return true;
     }
@@ -164,6 +163,10 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   randomInt(min, max) {
     return Math.floor(Math.random() * (max-min +1)) +min
+  }
+
+  finish(){
+    this.questionsService.saveQuestions();
   }
 
   equals(other1:Questions, other2:Questions) {

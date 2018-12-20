@@ -4,6 +4,7 @@ import {UserInfoModel} from "../models/UserInfoModel.model";
 import {AuthService} from "../services/auth.service";
 import {Questions} from "../models/Questions.model";
 import * as firebase from 'firebase';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-history',
@@ -15,6 +16,8 @@ export class UserHistoryComponent implements OnInit {
   user_question_list = this.qs.getQuestionsFromUsers();
   question_list = this.qs.questions;
   user = this.as.user;
+
+  public searchString: string;
 
   getScore(user: UserInfoModel , questionList : Questions[])
   {
@@ -38,6 +41,10 @@ export class UserHistoryComponent implements OnInit {
     return 0;
   }
 
+  onViewQuestion(id : number){
+    this.router.navigate(['/questions/view/' + id]);
+  }
+
   clean(userQuestions: Questions[], questionList : Questions[], uid : String)
   {
     let i;
@@ -50,8 +57,13 @@ export class UserHistoryComponent implements OnInit {
     }
   }
 
+  transform(userList, value: string) {
+    return(this.qs.transform2(userList, value));
+  }
+
   constructor(private qs : QuestionsService ,
-              private as : AuthService) {  }
+              private as : AuthService,
+              private router: Router,) {  }
 
   ngOnInit() {
   }

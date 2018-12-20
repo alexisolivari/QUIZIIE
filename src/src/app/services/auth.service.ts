@@ -10,7 +10,7 @@ import {Subject} from "rxjs";
 
 
 export class AuthService {
-  user : UserInfoModel = new UserInfoModel(null,"epic_fix", null, null);
+  user : UserInfoModel = new UserInfoModel(null,"epic_fix", null, null, null);
   userSubject = new Subject<UserInfoModel>();
 
   isAdmin : boolean = false;
@@ -58,7 +58,7 @@ export class AuthService {
             if (data.val()) {
               this.setIsAuth(true);
               let jpp = data.val();
-              let previous_user = new UserInfoModel(this.user.pseudo, this.user.email, this.user.isAdmin, this.user.uid);
+              let previous_user = new UserInfoModel(this.user.pseudo, this.user.email, this.user.isAdmin, this.user.uid, this.user.dateaj);
               console.log("TestAdmin " + (jpp.isAdmin.toString() === "true"));
               console.log("BOOLEAN" + jpp.isAdmin);
               if (jpp.isAdmin.toString() === "true") {
@@ -71,6 +71,7 @@ export class AuthService {
               previous_user.email = jpp.email;
               previous_user.uid = jpp.uid;
               previous_user.pseudo = jpp.pseudo;
+              previous_user.dateaj = jpp.dateaj;
               if (previous_user.email != this.user.email) {
                 this.user = previous_user;
                 this.setIsAdmin(previous_user.isAdmin);
@@ -96,7 +97,7 @@ export class AuthService {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
           () => {
             let uid =   firebase.auth().currentUser.uid;
-            this.setUserInfo(new UserInfoModel(null, email, false, uid));
+            this.setUserInfo(new UserInfoModel(null, email, false, uid, Date.now()));
             resolve();
           },
           (error) => {

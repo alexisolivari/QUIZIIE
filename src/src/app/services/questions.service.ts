@@ -171,4 +171,20 @@ export class QuestionsService {
     return buttonColor;
   }
 
+  transform(userList, value: string) {
+    if (!userList) {
+      return [];
+    }
+
+    if (!value){
+      return userList;
+    }
+
+    return userList.filter(user =>
+      user.email.toLowerCase().includes(value.toLowerCase())
+
+
+    );
+  }
+
 }

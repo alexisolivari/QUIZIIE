@@ -30,6 +30,7 @@ import { LadderBoardComponent } from './ladder-board/ladder-board.component';
 import { PopUpComponent } from './questions/pop-up/pop-up.component';
 import {ModalDialogModule} from "ngx-modal-dialog";
 import { CustomModalComponent } from './questions/pop-up/custom-modal/custom-modal.component';
+import {DataTableModule} from "angular-6-datatable";
 
 
 
@@ -82,7 +83,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatDialogModule,
     BrowserAnimationsModule,
-    ModalDialogModule.forRoot()
+    ModalDialogModule.forRoot(),
+    DataTableModule
   ],
   providers: [
     AuthService,

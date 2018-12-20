@@ -3,6 +3,7 @@ import * as firebase from "firebase";
 import {AuthService} from "../services/auth.service";
 import {UserInfoModel} from "../models/UserInfoModel.model";
 import {Subject} from "rxjs";
+import {QuestionsService} from "../services/questions.service";
 
 @Component({
   selector: 'app-gererUtilisateur',
@@ -14,7 +15,10 @@ export class GererUtilisateurComponent implements OnInit {
   userList : UserInfoModel[] = [];
   currentUser = "Email: " + firebase.auth().currentUser.email;
 
-  constructor() {
+  public searchString: string;
+  public x = [5,10,25, 30 ];
+
+  constructor(private  questionService : QuestionsService) {
     this.userList = this.getUserList();
   }
 
@@ -45,7 +49,23 @@ export class GererUtilisateurComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.searchFields = this.logsService.messageFields;
   }
+
+  /* debug(searchField : string){
+    console.log(searchField);
+  } */
+
+  transform(userList, value: string) {
+    return(this.questionService.transform(userList, value));
+  }
+
+  /*
+  onClear(){
+    this.logsService.clearLogs();
+  }*/
+
+
 
 }
 
